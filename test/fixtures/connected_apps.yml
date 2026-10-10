@@ -1,0 +1,27 @@
+portal:
+  name: Customer Portal
+  slug: portal
+  uid: <%= SecureRandom.hex(16) %>
+  secret: <%= SecureRandom.hex(32) %>
+  redirect_uri: https://portal.arcline.it/auth/nexus/callback
+  scopes: openid profile email roles
+  confidential: true
+  active: true
+  category: customer
+  homepage_url: https://portal.arcline.it
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+inactive_app:
+  name: Website
+  slug: website
+  uid: <%= SecureRandom.hex(16) %>
+  secret: <%= SecureRandom.hex(32) %>
+  redirect_uri: https://arcline.it/auth/nexus/callback
+  scopes: openid
+  confidential: true
+  active: false
+  category: customer
+  homepage_url: https://arcline.it
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>

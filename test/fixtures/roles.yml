@@ -1,0 +1,7 @@
+admin:
+  name: admin
+  description: Full platform administrator
+
+member:
+  name: member
+  description: Standard platform user

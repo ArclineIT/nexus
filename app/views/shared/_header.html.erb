@@ -1,0 +1,23 @@
+<header class="topbar">
+  <div class="container topbar__inner">
+    <%= link_to root_path, class: "brand" do %>
+      <span class="brand__mark">⚡</span>
+      Nexus<span class="brand__sub">Control Panel</span>
+    <% end %>
+
+    <nav class="topbar__nav">
+      <% if authenticated? %>
+        <a class="topbar__link" href="<%= dashboard_path %>">Dashboard</a>
+        <% if Current.user&.admin? %>
+          <a class="topbar__link" href="<%= admin_root_path %>">Admin</a>
+        <% end %>
+        <span class="topbar__user"><%= Current.user&.display_name %></span>
+        <%= button_to "Sign out", logout_path, method: :delete,
+              class: "link-button", form: { class: "inline-form" } %>
+      <% else %>
+        <a class="topbar__link" href="<%= new_session_path %>">Sign in</a>
+        <a class="topbar__link" href="<%= new_registration_path %>">Create account</a>
+      <% end %>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,44 @@
+<% content_for :title, "Users · Nexus Admin" %>
+
+<div class="page__header page-header-row">
+  <div>
+    <h1 class="page__title">Users</h1>
+    <p class="page__subtitle">Assign roles that are published to connected apps.</p>
+  </div>
+  <span class="badge"><%= @users.count %> users</span>
+</div>
+
+<div class="table-wrap">
+  <table class="data">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Email</th>
+        <th>Last login</th>
+        <th>Roles</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><strong><%= user.display_name %></strong></td>
+          <td class="text-muted"><%= user.email_address %></td>
+          <td class="text-muted"><%= user.last_login_at&.strftime("%b %-d, %Y %H:%M") || "Never" %></td>
+          <td>
+            <%= form_with url: admin_user_path(user), method: :patch do |f| %>
+              <div style="display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;">
+                <% @roles.each do |role| %>
+                  <label class="checkbox" style="font-size:0.82rem;">
+                    <%= check_box_tag "role_ids[]", role.id, user.role_ids.include?(role.id) %>
+                    <%= role.name %>
+                  </label>
+                <% end %>
+                <%= f.submit "Save", class: "btn btn--ghost btn--small" %>
+              </div>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,9 @@
+<p>Hi <%= @user.display_name %>,</p>
+
+<p>Someone requested a password reset for your Nexus account. If that was you, click the link below to choose a new password.</p>
+
+<p><%= link_to "Reset my password", edit_password_url(@token) %></p>
+
+<p>This link expires in 15 minutes. If you didn't request it, you can safely ignore this email.</p>
+
+<p>&mdash; Nexus</p>

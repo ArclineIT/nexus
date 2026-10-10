@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= content_for?(:title) ? yield(:title) : "Nexus" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#0b1120">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+    <main class="auth">
+      <div class="auth__inner">
+        <div class="auth__brand">
+          <div class="auth__mark">⚡</div>
+          <h1 class="auth__title">Nexus</h1>
+          <p class="auth__tagline">Your central command. One login, every tool.</p>
+        </div>
+
+        <%= render "shared/flash" %>
+
+        <div class="panel">
+          <%= yield %>
+        </div>
+
+        <p class="auth__tagline" style="text-align:center;margin-top:1.5rem;">
+          Arcline Platform &middot; Single Sign-On
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+<% content_for :title, "Set a new password · Nexus" %>
+
+<h2 class="panel__title">Set a new password</h2>
+
+<%= form_with url: password_path(params[:token]), method: :patch do |f| %>
+  <div class="field">
+    <%= f.label :password, "New password", class: "field__label" %>
+    <%= f.password_field :password, required: true, minlength: User::MIN_PASSWORD_LENGTH,
+          autofocus: true, autocomplete: "new-password", class: "input",
+          placeholder: "At least 8 characters" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, "Confirm new password", class: "field__label" %>
+    <%= f.password_field :password_confirmation, required: true, minlength: User::MIN_PASSWORD_LENGTH,
+          autocomplete: "new-password", class: "input", placeholder: "Repeat your password" %>
+  </div>
+
+  <%= f.submit "Reset password", class: "btn btn--primary btn--block" %>
+<% end %>

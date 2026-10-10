@@ -1,0 +1,64 @@
+<% content_for :title, "Dashboard · Nexus" %>
+
+<div class="page__header">
+  <h1 class="page__title">Welcome back, <%= Current.user.display_name %></h1>
+  <p class="page__subtitle">
+    One login, every tool. Launch any connected Arcline application below.
+  </p>
+</div>
+
+<% if @apps.any? %>
+  <div class="app-grid">
+    <% @apps.each do |app| %>
+      <% card = capture do %>
+        <div class="app-card__head">
+          <span class="app-icon"><%= app_initials(app.name) %></span>
+          <span class="badge badge--active">SSO</span>
+        </div>
+        <div class="app-card__name"><%= app.name %></div>
+        <p class="app-card__desc"><%= app.description.presence || "Connected Arcline application." %></p>
+        <div class="app-card__meta">
+          <span><%= category_label(app.category) %></span>
+          <span><%= app.homepage_url.present? ? URI.parse(app.homepage_url).host : "—" %></span>
+        </div>
+      <% end %>
+
+      <% if app.homepage_url.present? %>
+        <%= link_to app.homepage_url, class: "app-card", target: "_blank", rel: "noopener" do %>
+          <%= card %>
+        <% end %>
+      <% else %>
+        <div class="app-card"><%= card %></div>
+      <% end %>
+    <% end %>
+  </div>
+<% else %>
+  <div class="panel empty">
+    <div class="empty__mark">🔌</div>
+    <p>No connected applications yet.</p>
+  </div>
+<% end %>
+
+<h2 class="section-title">Recent activity</h2>
+
+<% if @recent_events.any? %>
+  <div class="table-wrap">
+    <table class="data">
+      <thead>
+        <tr><th>When</th><th>Event</th><th>Resource</th><th>IP</th></tr>
+      </thead>
+      <tbody>
+        <% @recent_events.each do |event| %>
+          <tr>
+            <td class="text-muted"><%= event.created_at.strftime("%b %-d, %H:%M") %></td>
+            <td><%= event.action %></td>
+            <td class="text-muted"><%= event.resource.presence || "—" %></td>
+            <td class="text-muted"><%= event.ip_address.presence || "—" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <p class="text-muted">No activity recorded yet.</p>
+<% end %>

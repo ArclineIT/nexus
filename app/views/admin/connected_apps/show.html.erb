@@ -1,0 +1,69 @@
+<% content_for :title, "#{@app.name} · Nexus Admin" %>
+<% root = request.base_url %>
+
+<div class="page__header page-header-row">
+  <div>
+    <h1 class="page__title"><%= @app.name %></h1>
+    <p class="page__subtitle"><%= @app.description.presence || "Connected Arcline application." %></p>
+  </div>
+  <div>
+    <% if @app.active? %>
+      <span class="badge badge--active">Active</span>
+    <% else %>
+      <span class="badge badge--inactive">Inactive</span>
+    <% end %>
+    <span class="badge"><%= category_label(@app.category) %></span>
+  </div>
+</div>
+
+<div class="panel">
+  <h2 class="panel__title">Client credentials</h2>
+  <dl class="meta-list">
+    <dt>Client ID</dt>
+    <dd><code><%= @app.uid %></code></dd>
+
+    <dt>Client secret</dt>
+    <dd><code><%= @app.secret %></code></dd>
+
+    <dt>Redirect URIs</dt>
+    <dd><pre><%= @app.redirect_uri %></pre></dd>
+
+    <dt>Scopes</dt>
+    <dd><code><%= @app.scopes %></code></dd>
+
+    <dt>Homepage</dt>
+    <dd><%= @app.homepage_url.presence || "—" %></dd>
+  </dl>
+
+  <div class="actions-row">
+    <%= link_to "Edit", edit_admin_connected_app_path(@app), class: "btn btn--ghost btn--small" %>
+    <%= button_to "Regenerate secret", regenerate_secret_admin_connected_app_path(@app),
+          method: :post, class: "btn btn--danger btn--small",
+          form: { data: { turbo_confirm: "Rotate the client secret? The current one will stop working immediately." } },
+          data: { turbo_confirm: "Rotate the client secret? The current one will stop working immediately." } %>
+  </div>
+</div>
+
+<h2 class="section-title">OpenID Connect endpoints</h2>
+
+<div class="panel">
+  <dl class="meta-list">
+    <dt>Issuer</dt>
+    <dd><code><%= root %></code></dd>
+
+    <dt>Discovery</dt>
+    <dd><code><%= root %>/.well-known/openid-configuration</code></dd>
+
+    <dt>Authorization</dt>
+    <dd><code><%= root %>/oauth/authorize</code></dd>
+
+    <dt>Token</dt>
+    <dd><code><%= root %>/oauth/token</code></dd>
+
+    <dt>UserInfo</dt>
+    <dd><code><%= root %>/oauth/userinfo</code></dd>
+
+    <dt>JWKS</dt>
+    <dd><code><%= root %>/oauth/discovery/keys</code></dd>
+  </dl>
+</div>

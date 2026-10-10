@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Authorize · Nexus</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#0b1120">
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  </head>
+
+  <body>
+    <main class="auth">
+      <div class="auth__inner">
+        <div class="auth__brand">
+          <div class="auth__mark">⚡</div>
+          <h1 class="auth__title">Nexus</h1>
+        </div>
+
+        <% if flash[:notice].present? %>
+          <div class="flash flash--notice" role="status"><%= flash[:notice] %></div>
+        <% end %>
+        <% if flash[:alert].present? %>
+          <div class="flash flash--alert" role="alert"><%= flash[:alert] %></div>
+        <% end %>
+
+        <div class="panel">
+          <%= yield %>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

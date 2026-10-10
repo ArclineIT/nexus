@@ -1,0 +1,53 @@
+<% content_for :title, "Edit #{@app.name} · Nexus Admin" %>
+
+<div class="page__header">
+  <h1 class="page__title">Edit <%= @app.name %></h1>
+  <p class="page__subtitle"><%= link_to "Back to #{@app.name}", admin_connected_app_path(@app) %></p>
+</div>
+
+<div class="panel">
+  <%= form_with model: @app, url: admin_connected_app_path(@app), method: :patch do |f| %>
+    <% if @app.errors.any? %>
+      <div class="flash flash--alert" role="alert"><%= @app.errors.full_messages.to_sentence %></div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name, class: "field__label" %>
+      <%= f.text_field :name, class: "input", required: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :description, class: "field__label" %>
+      <%= f.text_field :description, class: "input" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :homepage_url, "Homepage URL", class: "field__label" %>
+      <%= f.url_field :homepage_url, class: "input", placeholder: "https://app.arcline.it" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :category, class: "field__label" %>
+      <%= f.select :category, ConnectedApp::CATEGORIES.map { |c| [ category_label(c), c ] },
+            { include_blank: true }, class: "select" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :redirect_uri, "Redirect URIs (one per line)", class: "field__label" %>
+      <%= f.text_area :redirect_uri, class: "textarea", rows: 3 %>
+    </div>
+
+    <div class="field">
+      <%= f.label :scopes, class: "field__label" %>
+      <%= f.text_field :scopes, class: "input" %>
+      <p class="field__hint">Available scopes: openid, profile, email, roles, offline_access</p>
+    </div>
+
+    <div class="field checkbox">
+      <%= f.check_box :active %>
+      <%= f.label :active, "Active" %>
+    </div>
+
+    <%= f.submit "Save changes", class: "btn btn--primary" %>
+  <% end %>
+</div>

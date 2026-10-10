@@ -1,0 +1,45 @@
+<% content_for :title, "Connected Apps · Nexus Admin" %>
+
+<div class="page__header page-header-row">
+  <div>
+    <h1 class="page__title">Connected Apps</h1>
+    <p class="page__subtitle">Every Arcline application that signs in through Nexus.</p>
+  </div>
+  <span class="badge"><%= @apps.count %> registered</span>
+</div>
+
+<div class="table-wrap">
+  <table class="data">
+    <thead>
+      <tr>
+        <th>Application</th>
+        <th>Slug</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @apps.each do |app| %>
+        <tr>
+          <td>
+            <strong><%= app.name %></strong>
+            <div class="text-muted" style="font-size:0.8rem;">
+              <%= app.homepage_url.presence || "No homepage" %>
+            </div>
+          </td>
+          <td><code><%= app.slug %></code></td>
+          <td class="text-muted"><%= category_label(app.category) %></td>
+          <td>
+            <% if app.active? %>
+              <span class="badge badge--active">Active</span>
+            <% else %>
+              <span class="badge badge--inactive">Inactive</span>
+            <% end %>
+          </td>
+          <td><%= link_to "Manage", admin_connected_app_path(app), class: "topbar__link" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
