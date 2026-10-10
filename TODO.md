@@ -19,7 +19,9 @@
 - [ ] Billing — wire OIDC client
 - [ ] Git (Forgejo) — configure OAuth2 authentication source
 - [ ] Monitoring / Status — wire OIDC client
-- [ ] Email, Docs, Migrate, Provisioner, Vault, Audit, Check, DNS, Network — as each comes online
+- [x] Docs — OIDC client wired (sign-in, `admin` role, PKCE)
+- [ ] Email, Provisioner, Uptime, Status — replace HTTP basic auth with an OIDC client
+- [ ] Migrate, Vault, Audit, Check, DNS, Network — as each needs sign-in
 - [ ] Rotate seeded client secrets and distribute to each app
 
 ## Identity hardening
