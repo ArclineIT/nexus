@@ -34,9 +34,17 @@ role_by_name = roles.index_by(&:name)
 # Bootstrap admin user
 # ---------------------------------------------------------------------------
 
+LOCAL_ADMIN_PASSWORD = "password123"
+
 admin_email = ENV.fetch("NEXUS_ADMIN_EMAIL", "admin@arcline.it")
-admin_password = ENV["NEXUS_ADMIN_PASSWORD"]
-admin_password ||= "password123" if Rails.env.local?
+admin_password = ENV["NEXUS_ADMIN_PASSWORD"].presence
+admin_password ||= LOCAL_ADMIN_PASSWORD if Rails.env.local?
+
+# The local default is published in the README, so it must never protect a
+# real deployment, even when it is set on purpose.
+if admin_password == LOCAL_ADMIN_PASSWORD && !Rails.env.local?
+  abort "NEXUS_ADMIN_PASSWORD is the published local default; choose another password for #{Rails.env}."
+end
 
 admin = User.find_by(email_address: admin_email)
 

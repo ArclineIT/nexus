@@ -40,7 +40,7 @@ injected by Kamal (`config/deploy.yml`).
 | `NEXUS_OIDC_PRIVATE_KEY` | *(generated in dev)*            | RSA private key (PEM) used to sign ID tokens.           |
 | `DATABASE_PATH`          | `storage/production.sqlite3`    | SQLite database file.                                   |
 | `NEXUS_ADMIN_EMAIL`      | `admin@arcline.it`              | Bootstrap admin email used by `db:seed`.                |
-| `NEXUS_ADMIN_PASSWORD`   | `password123` (dev/test only)   | Bootstrap admin password. Required in production.       |
+| `NEXUS_ADMIN_PASSWORD`   | `password123` (dev/test only)   | Bootstrap admin password. Required in production, where `password123` is refused. |
 | `NEXUS_MAIL_FROM`        | `Nexus <noreply@arcline.it>`    | "From" address for transactional email.                 |
 
 ### Signing key
