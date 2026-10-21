@@ -21,7 +21,7 @@
 - [ ] Monitoring / Status — wire OIDC client
 - [x] Docs — OIDC client wired (sign-in, `admin` role, PKCE)
 - [ ] Email, Provisioner, Uptime, Status — replace HTTP basic auth with an OIDC client
-- [ ] Migrate, Vault, Audit, Check, DNS, Network — as each needs sign-in
+- [ ] Vault, Audit, Check, DNS, Network — as each needs sign-in
 - [ ] Rotate seeded client secrets and distribute to each app
 
 ## Identity hardening
